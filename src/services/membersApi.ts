@@ -43,6 +43,13 @@ export interface VMember {
   modified_on?: string;
   is_deleted: boolean;
   is_archived: boolean;
+
+  subscription_remitted_date?: string;
+  subscription_end_date?: string;
+  subscriber_status?: number;
+  payment_mode_id?: number;
+  transaction_id?: string;
+
   service?: {
     id: number;
     name: string;
@@ -79,6 +86,9 @@ export interface VMemberCreate {
   date_of_marriage?: string;
   old_rin_no: string;
   member_status: number;
+  subscription_remitted_date?: string;
+  payment_mode_id?: number;
+  transaction_id?: string;
   description?: string;
   created_by: number;
 }
@@ -100,6 +110,9 @@ export interface VMemberUpdate {
   date_of_marriage?: string;
   old_rin_no?: string;
   member_status?: number;
+  subscription_remitted_date?: string;
+  payment_mode_id?: number;
+  transaction_id?: string;
   description?: string;
   modified_by: number;
 }

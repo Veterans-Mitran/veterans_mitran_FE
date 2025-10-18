@@ -56,6 +56,15 @@ export interface District {
   state?: State;
 }
 
+export interface PaymentMode {
+  id: number;
+  mode_name: string;
+  created_on: string;
+  modified_on: string | null;
+  is_deleted: boolean;
+  is_archived: boolean;
+}
+
 const getAuthHeaders = (token: string) => ({
   'Authorization': `Bearer ${token}`,
   'Content-Type': 'application/json',
@@ -199,4 +208,35 @@ export const lookupsApi = {
 
     return result.data;
   },
+
+
+  getPaymentModes: async (token: string) => {
+    const queryParams = new URLSearchParams({
+      skip: '0',
+      limit: '100',
+      sort_by: 'mode_name',
+      sort_order: 'asc',
+      include_archived: 'false',
+    });
+
+    const response = await fetch(
+      `${API_BASE_URL}/api/lookups/payment_modes/?${queryParams}`,
+      {
+        method: 'GET',
+        headers: getAuthHeaders(token),
+      }
+    );
+
+    const result: ApiResponse<PaymentMode[]> = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || 'Failed to fetch payment modes');
+    }
+
+    return result.data;
+  },
+
+
 };
+
+
